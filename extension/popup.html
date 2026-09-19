@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>9Captcha</title>
+    <link rel="stylesheet" href="/popup.css" />
+    <script src="/popup.js" defer async></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Auth Screen -->
+      <div id="auth-screen" class="screen">
+        <div class="logo-section">
+          <img src="/icon/48.png" class="logo-icon" alt="9Captcha" />
+          <h1 class="logo-text">9Captcha</h1>
+          <p class="logo-sub">AI Captcha Solver</p>
+        </div>
+        <div class="input-group">
+          <label for="api-key-input">API Key</label>
+          <input type="text" id="api-key-input" placeholder="9cap-xxxxxxxx-xxxx-xxxx-xxxx" spellcheck="false" />
+        </div>
+        <button id="btn-activate" class="btn-primary">Activate</button>
+        <p id="auth-error" class="error-text"></p>
+      </div>
+
+      <!-- Main Screen -->
+      <div id="main-screen" class="screen hidden">
+        <div class="top-bar">
+          <div class="top-left">
+            <img src="/icon/16.png" alt="" class="top-icon" />
+            <span class="top-title">9Captcha</span>
+          </div>
+          <div class="top-right">
+            <span id="status-dot" class="dot active"></span>
+            <span id="status-text" class="status-label">Active</span>
+          </div>
+        </div>
+
+        <!-- Solver Mode -->
+        <div class="card">
+          <div class="card-label">Solver Engine</div>
+          <div class="mode-toggle">
+            <button id="btn-cloud" class="mode-btn active" data-mode="cloud">
+              <span class="mode-icon">☁</span> Cloud
+            </button>
+            <button id="btn-local" class="mode-btn" data-mode="local">
+              <span class="mode-icon">💻</span> Local
+            </button>
+          </div>
+          <p class="mode-desc" id="mode-description">Solves via 9Captcha cloud servers. Fast & reliable.</p>
+          <div style="font-size: 10px; color: #a0a0a0; margin-top: 10px; text-align: center;">
+            <span style="opacity: 0.6;">Internal Key: </span>
+            <span id="stat-internal-key" style="font-family: monospace; letter-spacing: 1px;">...</span>
+          </div>
+        </div>
+
+
+        <!-- Supported Captchas -->
+        <div class="card">
+          <div class="card-label">Supported</div>
+          <div class="captcha-tags">
+            <span class="tag">hCaptcha</span>
+            <span class="tag">reCAPTCHA</span>
+            <span class="tag">Turnstile</span>
+            <span class="tag">FunCaptcha</span>
+            <span class="tag">GeeTest</span>
+            <span class="tag">TextCaptcha</span>
+          </div>
+        </div>
+
+        <!-- Power Toggle + Logout -->
+        <div class="bottom-bar">
+          <button id="btn-power" class="btn-icon" title="Enable/Disable">
+            <span id="power-icon">⏻</span>
+          </button>
+          <button id="btn-logout" class="btn-text">Logout</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
