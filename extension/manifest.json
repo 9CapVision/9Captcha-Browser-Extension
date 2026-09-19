@@ -1,7 +1,7 @@
 {
     "update_url": "https://clients2.google.com/service/update2/crx",
     "name": "9Captcha Solver",
-    "version": "1.0.0",
+    "version": "0.5.6",
     "description": "Fast, automated captcha solving through 9Captcha AI.",
     "content_scripts": [
         {
@@ -17,9 +17,7 @@
         {
             "matches": [
                 "*://9captcha.pridesmp.fun/setup*",
-                "*://9captcha-api.pridesmp.fun/setup*",
-                "*://localhost/setup*",
-                "*://127.0.0.1/setup*"
+                "*://9captcha-api.pridesmp.fun/setup*"
             ],
             "js": [
                 "pages/setup.js"
@@ -29,9 +27,7 @@
         },
         {
             "matches": [
-                "*://localhost/integrate*",
                 "*://9captcha.pridesmp.fun/integrate*",
-                "*://127.0.0.1/integrate*",
                 "*://9captcha-api.pridesmp.fun/integrate*"
             ],
             "js": [
@@ -81,7 +77,8 @@
     "host_permissions": [
         "<all_urls>"
     ],
+
     "minimum_chrome_version": "100.0",
-    "version_name": "v1.0",
+    "version_name": "v0.5.6",
     "short_name": "9Captcha"
 }
