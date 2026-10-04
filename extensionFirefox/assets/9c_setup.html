@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>9Captcha Setup</title>
+</head>
+<body>
+  <p id="status">Processing...</p>
+  <script>
+    // 9Captcha Firefox Extension - Setup page
+    // Usage: navigate to moz-extension://<ext-id>/assets/9c_setup.html#key=YOUR_KEY|base_api=URL|enabled=true
+    // CRC32 hash (matches background protocol)
+    const crcTable = new Uint32Array(256);
+    for (let i = 256; i--;) { let c = i; for (let j = 8; j--;) c = c & 1 ? 3988292384 ^ c >>> 1 : c >>> 1; crcTable[i] = c; }
+    function crc32(data) { let c = -1; for (const b of data) c = c >>> 8 ^ crcTable[c & 255 ^ b]; return (c ^ -1) >>> 0; }
+    function hashNonce(nonce) {
+      return crc32(("1c5971fa1a81de2a4f3eff34065e9d80eb0e16f5970375cf0b93dd1f42a8fb93" + nonce).split("").map(c => c.charCodeAt(0)));
+    }
+
+    function sendMsg(action, args) {
+      return new Promise(resolve => {
+        const nonce = `${[+new Date, performance.now(), Math.random()]}`;
+        browser.runtime.sendMessage([nonce, action, ...args], resp => {
+          resolve(resp ? resp[1] : null);
+        });
+      });
+    }
+
+    function parseValue(v) {
+      if (/^(true|false)$/.test(v)) return v === "true";
+      if (/^\d+$/.test(v)) return +v;
+      return v;
+    }
+
+    (async () => {
+      const hash = location.hash.substring(1);
+      if (!hash) {
+        document.getElementById("status").textContent = "No settings in URL hash.";
+        return;
+      }
+
+      const parts = hash.split("|");
+      const settings = Object.fromEntries(
+        parts.map(p => p.includes("=") ? p.split("=") : ["key", p])
+             .map(([k, v]) => [k, parseValue(v)])
+      );
+
+      await sendMsg("settings::update", [settings]);
+
+      document.getElementById("status").textContent = "Settings applied: " + JSON.stringify(settings, null, 2);
+      document.title = "9Captcha - Setup Complete";
+    })();
+  </script>
+</body>
+</html>
