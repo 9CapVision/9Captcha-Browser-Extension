@@ -1,6 +1,6 @@
 # 9Captcha Browser Extension
 
-This is the official browser extension for 9Captcha, available for both Google Chrome and Mozilla Firefox. It automatically detects and solves hCaptcha challenges in the background using your 9Captcha API key.
+This is the official browser extension for 9Captcha, available for both Google Chrome and Mozilla Firefox. It automatically detects and solves Popular Captcha challenges in the background using your 9Captcha API key.
 
 ## Installation
 
